@@ -1,0 +1,29 @@
+# Secrets
+.env
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Generated training data (large, reproducible from the PDF)
+training_data/
+
+# Input source documents (copyright — do not distribute)
+input/
+
+# Generated search index (reproducible via build_index.py)
+chatbot/search_index/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# macOS
+.DS_Store
