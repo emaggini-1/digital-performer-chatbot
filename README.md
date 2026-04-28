@@ -6,7 +6,7 @@ A RAG (Retrieval-Augmented Generation) chatbot that answers questions about Digi
 
 1. The User Guide PDF is chunked into 1,550 text segments and embedded as 384-dimensional vectors
 2. When you ask a question, it is embedded with the same model and compared against all chunks using cosine similarity
-3. The top 8 most relevant chunks are retrieved and sent to GPT-4o as grounding context
+3. The top 8 most relevant chunks are retrieved and sent to GPT-4o-mini as grounding context
 4. The model answers using only those excerpts and cites page numbers — citations are clickable links into the PDF
 
 See [`rag-explainer.md`](./rag-explainer.md) for a detailed technical explanation.
@@ -187,15 +187,15 @@ Edit `chatbot/config.py` to change runtime behaviour:
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| `LLM_MODEL` | `gpt-4o` | OpenAI model for answer generation |
+| `LLM_MODEL` | `gpt-4o-mini` | OpenAI model for answer generation |
 | `TOP_K` | `8` | Number of chunks retrieved per query |
 | `MAX_CONTEXT_TOKENS` | `6000` | Max tokens sent as context to the LLM |
 | `EMBEDDING_MODEL` | `all-MiniLM-L6-v2` | Sentence-transformers model for query embedding |
 
-To use a cheaper/faster model, set `LLM_MODEL = "gpt-4o-mini"` or override via environment:
+To use the full model, set `LLM_MODEL = "gpt-4o"` or override via environment:
 
 ```bash
-LLM_MODEL=gpt-4o-mini uvicorn chatbot.server:app --port 8000
+LLM_MODEL=gpt-4o uvicorn chatbot.server:app --port 8000
 ```
 
 ### Free local alternative (no API key needed)
@@ -252,7 +252,7 @@ The server exposes three endpoints:
 | Component | Cost |
 |-----------|------|
 | Query embedding | $0 — runs locally |
-| GPT-4o answer generation | ~$0.01–0.03 per query |
-| ~100 queries/month | ~$1–3/mo |
+| GPT-4o-mini answer generation | ~$0.001–0.003 per query |
+| ~100 queries/month | ~$0.10–0.30/mo |
 
 Set a spending limit at [platform.openai.com/settings/organization/billing](https://platform.openai.com/settings/organization/billing).
